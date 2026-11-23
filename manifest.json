@@ -1,6 +1,6 @@
 {
-  "name": "Cálculo de Diferencia Cambiaria - Rhonny Jaimes",
-  "short_name": "Diferencia FX",
+  "name": "Cálculo de Diferencia Cambiaria",
+  "short_name": "Diferencia Cambiaria",
   "description": "Calculadora de diferencia cambiaria, comisiones bancarias y retorno a USDT por Rhonny Jaimes",
   "start_url": "./index.html",
   "display": "standalone",
