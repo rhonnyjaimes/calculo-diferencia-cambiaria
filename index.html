@@ -924,7 +924,9 @@
       applyTheme(isDark ? 'light' : 'dark');
     });
 
-    // Consulta automática de la Tasa Oficial BCV en Venezuela (DolarApi)
+    // Consulta automática de la Tasa Oficial BCV en Venezuela
+    // Primero intenta leer directamente la página oficial https://www.bcv.org.ve (para tener la Fecha Valor exacta que publica el BCV en la tarde para el día siguiente)
+    // y si el proxy CORS falla, usa DolarApi como respaldo inmediato.
     let latestBcvRate = 0;
     const elBcvLiveValue = document.getElementById('bcvLiveValue');
     const elBcvLastUpdate = document.getElementById('bcvLastUpdate');
@@ -933,50 +935,96 @@
     const btnRefreshBcv = document.getElementById('btnRefreshBcv');
     const iconRefreshBcv = document.getElementById('iconRefreshBcv');
 
+    async function fetchDirectFromBcvHtml() {
+      const targetUrl = 'https://www.bcv.org.ve/';
+      const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}&t=${Date.now()}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`
+      ];
+
+      for (const proxyUrl of proxies) {
+        try {
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), 5500);
+          const res = await fetch(proxyUrl, { signal: controller.signal, cache: 'no-store' });
+          clearTimeout(timer);
+          if (!res.ok) continue;
+
+          const html = await res.text();
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+
+          // En bcv.org.ve el dólar está dentro de #dolar strong
+          const dolarNode = doc.querySelector('#dolar strong');
+          if (!dolarNode) continue;
+
+          const rawText = dolarNode.textContent.trim().replace(/\./g, '').replace(',', '.');
+          const rate = parseFloat(rawText);
+          if (!rate || rate <= 0) continue;
+
+          // Extraer "Fecha Valor: Martes, 24 Noviembre 2026"
+          const dateNode = doc.querySelector('.pull-right.dinpro.center');
+          let fechaValor = '';
+          if (dateNode) {
+            fechaValor = dateNode.textContent.replace(/\s+/g, ' ').trim();
+          }
+
+          return {
+            rate: +rate.toFixed(4),
+            label: fechaValor ? `${fechaValor} (Fuente directa: bcv.org.ve)` : 'Fuente directa: bcv.org.ve'
+          };
+        } catch (e) {
+          // Intentar siguiente proxy
+        }
+      }
+      return null;
+    }
+
+    async function fetchFromDolarApi() {
+      const res = await fetch('https://ve.dolarapi.com/v1/dolares/oficial', { cache: 'no-store' });
+      if (!res.ok) throw new Error('Error HTTP ' + res.status);
+      const data = await res.json();
+      const rate = parseFloat(data.promedio || data.venta || data.precio || 0);
+      if (!rate || rate <= 0) throw new Error('Tasa inválida');
+
+      let label = 'Tasa BCV (vía DolarApi)';
+      if (data.fechaActualizacion) {
+        const dt = new Date(data.fechaActualizacion);
+        label = `Actualizado: ${dt.toLocaleDateString('es-VE', { day: '2-digit', month: '2-digit', year: 'numeric' })} (vía DolarApi - puede no incluir la Fecha Valor de mañana)`;
+      }
+      return {
+        rate: +rate.toFixed(4),
+        label
+      };
+    }
+
     async function fetchBcvRate(forceApply = false) {
       try {
         iconRefreshBcv.classList.add('animate-spin');
-        elBcvLiveValue.textContent = 'Consultando...';
+        elBcvLiveValue.textContent = 'Consultando BCV...';
 
-        // API pública de Dólar Oficial BCV Venezuela
-        const res = await fetch('https://ve.dolarapi.com/v1/dolares/oficial', { cache: 'no-store' });
-        if (!res.ok) throw new Error('Error HTTP ' + res.status);
-        const data = await res.json();
+        // 1. Intentar lectura directa de bcv.org.ve (tiene la tasa publicada para mañana / Fecha Valor)
+        let result = await fetchDirectFromBcvHtml();
 
-        const rate = parseFloat(data.promedio || data.venta || 0);
-        if (rate > 0) {
-          latestBcvRate = +rate.toFixed(4);
-          elBcvLiveValue.textContent = `${latestBcvRate.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 4 })} Bs`;
-          elBcvStatusDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 mt-1.5 shrink-0';
+        // 2. Si falla, usar DolarApi como respaldo
+        if (!result) {
+          result = await fetchFromDolarApi();
+        }
 
-          if (data.fechaActualizacion) {
-            const dt = new Date(data.fechaActualizacion);
-            const formattedDate = dt.toLocaleString('es-VE', {
-              day: '2-digit',
-              month: '2-digit',
-              year: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit',
-              hour12: true
-            });
-            elBcvLastUpdate.textContent = `Última actualización BCV: ${formattedDate}`;
-          } else {
-            elBcvLastUpdate.textContent = 'Tasa BCV actualizada al día de hoy.';
-          }
+        latestBcvRate = result.rate;
+        elBcvLiveValue.textContent = `${latestBcvRate.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 4 })} Bs`;
+        elBcvStatusDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 mt-1.5 shrink-0';
+        elBcvLastUpdate.textContent = result.label;
 
-          // Si la casilla está en 0 o el usuario pulsó "Usar Tasa BCV", la aplicamos automáticamente
-          const currentInputRate = parseFloat(elTasaBanco.value) || 0;
-          if (forceApply || currentInputRate === 0) {
-            elTasaBanco.value = latestBcvRate;
-            calculate();
-          }
-        } else {
-          throw new Error('Tasa inválida');
+        const currentInputRate = parseFloat(elTasaBanco.value) || 0;
+        if (forceApply || currentInputRate === 0) {
+          elTasaBanco.value = latestBcvRate;
+          calculate();
         }
       } catch (err) {
         elBcvLiveValue.textContent = 'Modo Manual';
         elBcvStatusDot.className = 'w-2.5 h-2.5 rounded-full bg-amber-500 mt-1.5 shrink-0';
-        elBcvLastUpdate.textContent = 'No se pudo conectar con la API del BCV. Ingresa la tasa manualmente.';
+        elBcvLastUpdate.textContent = 'No se pudo conectar con el BCV. Ingresa la tasa manualmente.';
       } finally {
         iconRefreshBcv.classList.remove('animate-spin');
       }
