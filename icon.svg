@@ -1,36 +1,37 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     <linearGradient id="bg" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#3730a3"/>
-      <stop offset="50%" stop-color="#4f46e5"/>
+      <stop offset="0%" stop-color="#312e81"/>
       <stop offset="100%" stop-color="#10b981"/>
-    </linearGradient>
-    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fde68a"/>
-      <stop offset="100%" stop-color="#f59e0b"/>
     </linearGradient>
   </defs>
 
-  <!-- Fondo del ícono -->
+  <!-- Fondo con esquinas redondeadas -->
   <rect width="512" height="512" rx="115" fill="url(#bg)"/>
 
-  <!-- Anillo de intercambio cambiario (Flechas de giro alrededor del dólar) -->
-  <g fill="none" stroke="#ffffff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" opacity="0.92">
-    <path d="M 110 210 A 150 150 0 0 1 380 155"/>
-    <polyline points="340,120 390,158 345,195"/>
-    <path d="M 402 302 A 150 150 0 0 1 132 357"/>
-    <polyline points="172,392 122,354 167,317"/>
+  <!-- Círculo interior translúcido -->
+  <circle cx="256" cy="256" r="181" fill="#ffffff" fill-opacity="0.11"/>
+
+  <!-- Flechas circulares perfectamente centradas (radio 174, centro 256,256) -->
+  <g fill="none" stroke="#ffffff" stroke-width="23" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Arco superior: de 190° (84.6, 225.8) a 325° (398.5, 156.2) -->
+    <path d="M 84.6 225.8 A 174 174 0 0 1 398.5 156.2"/>
+    <polyline points="359.7,151.1 398.5,156.2 387.8,193.7"/>
+
+    <!-- Arco inferior: empieza detrás de la medalla en 68° (321.2, 417.3) hasta 148° (108.4, 348.2) -->
+    <path d="M 321.2 417.3 A 174 174 0 0 1 108.4 348.2"/>
+    <polyline points="146.8,355.4 108.4,348.2 121.1,311.4"/>
   </g>
 
   <!-- Símbolo de Dólar ($) grande en el centro -->
-  <text x="256" y="330" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="235" fill="#ffffff">$</text>
+  <text x="256" y="328" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="210" fill="#ffffff">$</text>
 
-  <!-- Medalla / Guiño sutil de bicicleta en la esquina inferior derecha -->
-  <circle cx="395" cy="395" r="78" fill="#0f172a" stroke="url(#gold)" stroke-width="12"/>
-  <g transform="translate(347, 347) scale(4)" fill="none" stroke="#fde68a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Medalla dorada con la bicicleta completa (incluyendo cabeza) en la esquina inferior derecha -->
+  <circle cx="397" cy="397" r="89" fill="#0f172a" stroke="#fbbf24" stroke-width="12"/>
+  <g transform="translate(335.5, 335.5) scale(5.125)" fill="none" stroke="#fde68a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <circle cx="18.5" cy="17.5" r="3.5"/>
     <circle cx="5.5" cy="17.5" r="3.5"/>
-    <circle cx="15" cy="5" r="1" fill="#fde68a"/>
-    <path d="M12 17.5V14l-3-3 4-3 2 3h2"/>
+    <circle cx="15" cy="5" r="1.8" fill="#fde68a" stroke="none"/>
+    <path d="M12 17.5V14l-3-3 4-3 2 3h2.2"/>
   </g>
 </svg>
