@@ -935,48 +935,48 @@
     const btnRefreshBcv = document.getElementById('btnRefreshBcv');
     const iconRefreshBcv = document.getElementById('iconRefreshBcv');
 
-    async function fetchDirectFromBcvHtml() {
-      const targetUrl = 'https://www.bcv.org.ve/';
-      const proxies = [
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}&t=${Date.now()}`,
-        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`
-      ];
-
-      for (const proxyUrl of proxies) {
-        try {
-          const controller = new AbortController();
-          const timer = setTimeout(() => controller.abort(), 5500);
-          const res = await fetch(proxyUrl, { signal: controller.signal, cache: 'no-store' });
-          clearTimeout(timer);
-          if (!res.ok) continue;
-
-          const html = await res.text();
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-
-          // En bcv.org.ve el dólar está dentro de #dolar strong
-          const dolarNode = doc.querySelector('#dolar strong');
-          if (!dolarNode) continue;
-
-          const rawText = dolarNode.textContent.trim().replace(/\./g, '').replace(',', '.');
-          const rate = parseFloat(rawText);
-          if (!rate || rate <= 0) continue;
-
-          // Extraer "Fecha Valor: Martes, 24 Noviembre 2026"
-          const dateNode = doc.querySelector('.pull-right.dinpro.center');
-          let fechaValor = '';
-          if (dateNode) {
-            fechaValor = dateNode.textContent.replace(/\s+/g, ' ').trim();
-          }
-
-          return {
-            rate: +rate.toFixed(4),
-            label: fechaValor ? `${fechaValor} (Fuente directa: bcv.org.ve)` : 'Fuente directa: bcv.org.ve'
-          };
-        } catch (e) {
-          // Intentar siguiente proxy
-        }
+    function formatIsoDateEs(isoDateStr) {
+      if (!isoDateStr) return '';
+      const parts = isoDateStr.split('T')[0].split('-');
+      if (parts.length === 3) {
+        const y = parseInt(parts[0], 10);
+        const m = parseInt(parts[1], 10) - 1;
+        const d = parseInt(parts[2], 10);
+        const dt = new Date(y, m, d);
+        return dt.toLocaleDateString('es-VE', {
+          weekday: 'long',
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric'
+        });
       }
+      return isoDateStr;
+    }
+
+    async function fetchDirectFromBcvHtml() {
+      // Fuente principal recomendada: DolarVZLA Monitor BCV (https://rates.dolarvzla.com/bcv/current.json)
+      try {
+        const res = await fetch('https://rates.dolarvzla.com/bcv/current.json?t=' + Date.now(), { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          const currentObj = data.current || data;
+          const rate = parseFloat(currentObj.usd || currentObj.rate || 0);
+          if (rate > 0) {
+            const prettyDate = formatIsoDateEs(currentObj.date || '');
+            let prevInfo = '';
+            if (data.previous && data.previous.usd) {
+              const prevRate = (+parseFloat(data.previous.usd)).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+              prevInfo = ' • Anterior: ' + prevRate + ' Bs';
+            }
+            return {
+              rate: +rate.toFixed(4),
+              label: prettyDate
+                ? 'Fecha Valor BCV: ' + prettyDate + prevInfo + ' (Fuente: DolarVZLA)'
+                : 'Actualizado vía Monitor BCV (DolarVZLA)' + prevInfo
+            };
+          }
+        }
+      } catch (e) {}
       return null;
     }
 
