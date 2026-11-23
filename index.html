@@ -13,6 +13,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
@@ -27,6 +28,13 @@
     body {
       background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 45%, #f1f5f9 100%);
       -webkit-tap-highlight-color: transparent;
+      transition: background 0.25s ease, color 0.25s ease;
+    }
+    html.dark body {
+      background: radial-gradient(circle at 0% 0%, rgba(79, 70, 229, 0.14), transparent 45%),
+                  radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.12), transparent 45%),
+                  #0b0f19;
+      color: #f1f5f9;
     }
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
@@ -38,6 +46,102 @@
     }
     .card-shadow {
       box-shadow: 0 12px 32px -12px rgba(15, 23, 42, 0.08), 0 4px 12px -4px rgba(15, 23, 42, 0.04);
+    }
+    html.dark .card-shadow {
+      box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Adaptación automática de tarjetas y textos en Modo Oscuro */
+    html.dark .bg-white {
+      background-color: #111827 !important;
+    }
+    html.dark .bg-slate-50 {
+      background-color: #1e293b !important;
+    }
+    html.dark .bg-slate-100 {
+      background-color: #1f2937 !important;
+    }
+    html.dark .border-slate-200\/80,
+    html.dark .border-slate-200\/90,
+    html.dark .border-slate-200,
+    html.dark .border-slate-300,
+    html.dark .border-slate-100 {
+      border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    html.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]) {
+      border-color: rgba(255, 255, 255, 0.08) !important;
+    }
+    html.dark .text-slate-900,
+    html.dark .text-slate-800 {
+      color: #f8fafc !important;
+    }
+    html.dark .text-slate-700,
+    html.dark .text-slate-600 {
+      color: #cbd5e1 !important;
+    }
+    html.dark .text-slate-500,
+    html.dark .text-slate-400 {
+      color: #94a3b8 !important;
+    }
+
+    /* Cajas temáticas (Indigo, Amber, Emerald) en Modo Oscuro */
+    html.dark .bg-indigo-50\/90,
+    html.dark .bg-indigo-50\/50,
+    html.dark .bg-indigo-50 {
+      background-color: rgba(79, 70, 229, 0.15) !important;
+    }
+    html.dark .border-indigo-200\/80,
+    html.dark .border-indigo-200,
+    html.dark .border-indigo-300 {
+      border-color: rgba(99, 102, 241, 0.35) !important;
+    }
+    html.dark .text-indigo-950,
+    html.dark .text-indigo-800,
+    html.dark .text-indigo-700,
+    html.dark .text-indigo-600 {
+      color: #a5b4fc !important;
+    }
+    html.dark .bg-indigo-100 {
+      background-color: rgba(79, 70, 229, 0.3) !important;
+    }
+
+    html.dark .bg-amber-50\/70,
+    html.dark .bg-amber-50\/50 {
+      background-color: rgba(245, 158, 11, 0.12) !important;
+    }
+    html.dark .border-amber-200\/90,
+    html.dark .border-amber-200\/80,
+    html.dark .border-amber-300 {
+      border-color: rgba(245, 158, 11, 0.35) !important;
+    }
+    html.dark .text-amber-950,
+    html.dark .text-amber-900,
+    html.dark .text-amber-800\/80,
+    html.dark .text-amber-700,
+    html.dark .text-amber-600 {
+      color: #fcd34d !important;
+    }
+    html.dark .bg-amber-100 {
+      background-color: rgba(245, 158, 11, 0.25) !important;
+    }
+
+    html.dark .bg-emerald-50\/50 {
+      background-color: rgba(16, 185, 129, 0.12) !important;
+    }
+    html.dark .border-emerald-200\/80 {
+      border-color: rgba(16, 185, 129, 0.3) !important;
+    }
+    html.dark .text-emerald-700,
+    html.dark .text-emerald-600 {
+      color: #6ee7b7 !important;
+    }
+
+    html.dark input[type="number"] {
+      background-color: #0f172a !important;
+      color: #ffffff !important;
+    }
+    html.dark .bg-slate-200\/70 {
+      background-color: #334155 !important;
     }
   </style>
 </head>
@@ -74,6 +178,20 @@
       </div>
 
       <div class="flex items-center gap-2 self-end sm:self-center">
+        <!-- Botón Modo Claro / Oscuro -->
+        <button id="btnTheme" type="button" title="Cambiar entre Modo Claro y Modo Oscuro" class="px-3.5 py-2 rounded-2xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-xs font-bold text-slate-700 transition flex items-center gap-1.5 shrink-0">
+          <!-- Icono Luna (Se muestra en modo claro) -->
+          <svg id="iconMoon" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-indigo-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+          </svg>
+          <!-- Icono Sol (Se muestra en modo oscuro) -->
+          <svg id="iconSun" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-400 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+          </svg>
+          <span id="themeText">Modo Oscuro</span>
+        </button>
+
         <button id="btnReset" title="Restaurar valores originales del Excel" class="px-3.5 py-2 rounded-2xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-xs font-bold text-slate-700 transition flex items-center gap-1.5 shrink-0">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
@@ -735,7 +853,36 @@
       input.addEventListener('input', calculate);
     });
 
+    // Control de Modo Claro / Modo Oscuro
+    const btnTheme = document.getElementById('btnTheme');
+    const iconMoon = document.getElementById('iconMoon');
+    const iconSun = document.getElementById('iconSun');
+    const themeText = document.getElementById('themeText');
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+        iconMoon.classList.add('hidden');
+        iconSun.classList.remove('hidden');
+        themeText.textContent = 'Modo Claro';
+      } else {
+        document.documentElement.classList.remove('dark');
+        iconSun.classList.add('hidden');
+        iconMoon.classList.remove('hidden');
+        themeText.textContent = 'Modo Oscuro';
+      }
+      localStorage.setItem('diferencia_theme', theme);
+    }
+
+    btnTheme.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      applyTheme(isDark ? 'light' : 'dark');
+    });
+
     (function init() {
+      // Cargar tema guardado (por defecto Modo Claro)
+      const savedTheme = localStorage.getItem('diferencia_theme') || 'light';
+      applyTheme(savedTheme);
       try {
         const saved = JSON.parse(localStorage.getItem('diferencia_cambiaria_v2'));
         if (saved && typeof saved.cantidad === 'number') {
