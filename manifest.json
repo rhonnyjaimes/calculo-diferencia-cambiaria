@@ -1,0 +1,10 @@
+{
+  "name": "Calculadora Bicicleta Bancos - Rhonny Jaimes",
+  "short_name": "Bicicleta Calc",
+  "description": "Calculadora de arbitraje y comisiones bancarias vs Binance USDT por Rhonny Jaimes",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b0f19",
+  "theme_color": "#0b0f19",
+  "orientation": "portrait"
+}

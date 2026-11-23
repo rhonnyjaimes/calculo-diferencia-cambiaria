@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Calculadora Bicicleta Bancos | Rhonny Jaimes</title>
+  <meta name="description" content="Calculadora de arbitraje y comisiones bancarias vs Binance USDT">
+  <meta name="theme-color" content="#0b0f19">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0b0f19;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.14) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.12) 0px, transparent 50%);
+      background-attachment: fixed;
+      -webkit-tap-highlight-color: transparent;
+    }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+    .glass-card {
+      background: rgba(17, 24, 39, 0.78);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col justify-between antialiased selection:bg-blue-500 selection:text-white">
+
+  <!-- Main Mobile Container -->
+  <main class="w-full max-w-md mx-auto px-4 pt-5 pb-8 space-y-4">
+
+    <!-- Header -->
+    <header class="flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-lg font-extrabold tracking-tight text-white leading-tight">Calculadora Bicicleta</h1>
+          <p class="text-xs text-slate-400">Banco • Comisiones • Binance USDT</p>
+        </div>
+      </div>
+
+      <button id="btnReset" title="Restaurar valores del Excel" class="px-3 py-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 active:scale-95 text-xs font-medium text-slate-300 border border-slate-700/70 transition flex items-center gap-1.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+        </svg>
+        Reset
+      </button>
+    </header>
+
+    <!-- Main Profit Hero Card -->
+    <section id="profitHero" class="rounded-3xl p-5 bg-gradient-to-br from-emerald-500/20 via-emerald-900/20 to-slate-900/90 border border-emerald-500/30 shadow-xl shadow-emerald-950/20 transition-all duration-300">
+      <div class="flex items-center justify-between mb-1">
+        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-300/90 flex items-center gap-1.5">
+          <span id="profitDot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Ganancia Neta Estimada
+        </span>
+        <span id="roiBadge" class="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+          +9.32%
+        </span>
+      </div>
+
+      <div class="flex items-baseline justify-between mt-2">
+        <div>
+          <div class="text-3xl font-extrabold font-mono tracking-tight text-white flex items-baseline gap-1.5">
+            <span id="outGananciaUsdt">24.11</span>
+            <span class="text-sm font-sans font-bold text-emerald-400">USDT</span>
+          </div>
+          <div class="text-xs text-slate-300 mt-1 font-mono">
+            ≈ <span id="outGananciaBs" class="font-semibold text-slate-100">24,589.11</span> Bs totales
+          </div>
+        </div>
+        <div class="text-right">
+          <div class="text-[11px] text-slate-400 uppercase tracking-wider">Margen / $1</div>
+          <div class="text-base font-mono font-bold text-emerald-300">
+            <span id="outGananciaPorDolar">81.96</span> <span class="text-xs font-normal text-slate-400">Bs</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Capital Requerido Summary inside Hero -->
+      <div class="mt-4 pt-3.5 border-t border-white/10 grid grid-cols-2 gap-3">
+        <div class="bg-slate-950/45 rounded-2xl p-2.5 border border-white/5">
+          <div class="text-[11px] text-slate-400 flex items-center gap-1">
+            <span>Bs Necesarios</span>
+            <span>➡️</span>
+          </div>
+          <div id="outBsNecesarios" class="text-sm font-mono font-bold text-amber-300 mt-0.5">
+            263,734.11 Bs
+          </div>
+        </div>
+        <div class="bg-slate-950/45 rounded-2xl p-2.5 border border-white/5">
+          <div class="text-[11px] text-slate-400 flex items-center gap-1">
+            <span>Inversión USDT</span>
+            <span>➡️</span>
+          </div>
+          <div id="outUsdtNecesarios" class="text-sm font-mono font-bold text-blue-300 mt-0.5">
+            258.56 USDT
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Primary Inputs: Cantidad & Tasas -->
+    <section class="glass-card rounded-3xl p-4 space-y-3.5 shadow-lg">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+          Datos Principales
+        </h2>
+        <span class="text-[11px] text-slate-500">Edita en tiempo real</span>
+      </div>
+
+      <!-- Cantidad Input -->
+      <div>
+        <label for="inCantidad" class="block text-xs font-medium text-slate-300 mb-1.5">
+          Cantidad a comprar (USD / Divisas)
+        </label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 font-mono font-bold">$</span>
+          <input
+            id="inCantidad"
+            type="number"
+            inputmode="decimal"
+            step="any"
+            value="300"
+            class="w-full pl-8 pr-16 py-3 rounded-2xl bg-slate-950/80 border border-slate-700/80 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-lg font-mono font-bold text-white outline-none transition"
+            placeholder="300"
+          >
+          <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-xs font-semibold text-slate-400">USD</span>
+        </div>
+      </div>
+
+      <!-- Tasas Grid -->
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label for="inTasaBanco" class="block text-xs font-medium text-slate-300 mb-1.5">
+            Tasa Banco
+          </label>
+          <div class="relative">
+            <input
+              id="inTasaBanco"
+              type="number"
+              inputmode="decimal"
+              step="any"
+              value="874.74"
+              class="w-full pl-3.5 pr-10 py-2.5 rounded-2xl bg-slate-950/80 border border-slate-700/80 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-base font-mono font-bold text-white outline-none transition"
+              placeholder="874.74"
+            >
+            <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-xs font-medium text-slate-500">Bs</span>
+          </div>
+        </div>
+
+        <div>
+          <label for="inTasaBinance" class="block text-xs font-medium text-slate-300 mb-1.5">
+            Tasa Binance
+          </label>
+          <div class="relative">
+            <input
+              id="inTasaBinance"
+              type="number"
+              inputmode="decimal"
+              step="any"
+              value="1020"
+              class="w-full pl-3.5 pr-10 py-2.5 rounded-2xl bg-slate-950/80 border border-slate-700/80 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-base font-mono font-bold text-emerald-300 outline-none transition"
+              placeholder="1020"
+            >
+            <span class="absolute inset-y-0 right-0 pr-3 flex items-center text-xs font-medium text-slate-500">Bs</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Commissions Inputs -->
+    <section class="glass-card rounded-3xl p-4 space-y-3 shadow-lg">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" x2="5" y1="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+          Comisiones Configurables
+        </h2>
+        <div class="inline-flex rounded-xl bg-slate-900 p-0.5 border border-slate-800 text-[11px]">
+          <button id="modePercent" class="px-2.5 py-1 rounded-lg font-semibold bg-blue-600 text-white transition">Porcentaje %</button>
+          <button id="modeDecimal" class="px-2.5 py-1 rounded-lg font-semibold text-slate-400 hover:text-white transition">Decimal (Excel)</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2.5">
+        <!-- Compra -->
+        <div class="bg-slate-950/60 p-2.5 rounded-2xl border border-slate-800/80">
+          <label for="inComCompra" class="block text-[11px] font-semibold text-slate-400 mb-1">
+            1. Compra
+          </label>
+          <div class="relative">
+            <input
+              id="inComCompra"
+              type="number"
+              inputmode="decimal"
+              step="any"
+              value="0.5"
+              class="w-full pr-5 py-1.5 bg-transparent text-sm font-mono font-bold text-white outline-none focus:text-blue-400"
+            >
+            <span class="unit-label absolute inset-y-0 right-0 flex items-center text-xs text-slate-500 font-mono">%</span>
+          </div>
+          <div id="decComCompra" class="text-[10px] font-mono text-slate-500 mt-0.5">Excel: 0.005</div>
+        </div>
+
+        <!-- Uso -->
+        <div class="bg-slate-950/60 p-2.5 rounded-2xl border border-slate-800/80">
+          <label for="inComUso" class="block text-[11px] font-semibold text-slate-400 mb-1">
+            2. Uso
+          </label>
+          <div class="relative">
+            <input
+              id="inComUso"
+              type="number"
+              inputmode="decimal"
+              step="any"
+              value="2.5"
+              class="w-full pr-5 py-1.5 bg-transparent text-sm font-mono font-bold text-white outline-none focus:text-blue-400"
+            >
+            <span class="unit-label absolute inset-y-0 right-0 flex items-center text-xs text-slate-500 font-mono">%</span>
+          </div>
+          <div id="decComUso" class="text-[10px] font-mono text-slate-500 mt-0.5">Excel: 0.025</div>
+        </div>
+
+        <!-- Binance -->
+        <div class="bg-slate-950/60 p-2.5 rounded-2xl border border-slate-800/80">
+          <label for="inComBinance" class="block text-[11px] font-semibold text-slate-400 mb-1">
+            3. Binance
+          </label>
+          <div class="relative">
+            <input
+              id="inComBinance"
+              type="number"
+              inputmode="decimal"
+              step="any"
+              value="4.1"
+              class="w-full pr-5 py-1.5 bg-transparent text-sm font-mono font-bold text-white outline-none focus:text-blue-400"
+            >
+            <span class="unit-label absolute inset-y-0 right-0 flex items-center text-xs text-slate-500 font-mono">%</span>
+          </div>
+          <div id="decComBinance" class="text-[10px] font-mono text-slate-500 mt-0.5">Excel: 0.041</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step-by-Step Cascade (Exact Excel Breakdown) -->
+    <section class="glass-card rounded-3xl p-4 space-y-3 shadow-lg">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+          Desglose de Tasas (Como en Excel)
+        </h2>
+      </div>
+
+      <div class="divide-y divide-slate-800/70 text-sm">
+        <div class="py-2 flex items-center justify-between">
+          <div>
+            <div class="font-medium text-slate-200">Tasa Compra (+<span id="lblPctCompra">0.5%</span>)</div>
+            <div class="text-[11px] text-slate-500">Tasa Banco × (1 + Compra)</div>
+          </div>
+          <div id="outTasaCompra" class="font-mono font-bold text-amber-300">879.1137</div>
+        </div>
+
+        <div class="py-2 flex items-center justify-between">
+          <div>
+            <div class="font-medium text-slate-200">Tasa Uso (+<span id="lblPctUso">2.5%</span>)</div>
+            <div class="text-[11px] text-slate-500">Tasa Compra × (1 + Uso)</div>
+          </div>
+          <div id="outTasaUso" class="font-mono font-bold text-slate-200">901.0915</div>
+        </div>
+
+        <div class="py-2 flex items-center justify-between">
+          <div>
+            <div class="font-medium text-slate-200">Tasa Efectiva Final (+<span id="lblPctBinance">4.1%</span>)</div>
+            <div class="text-[11px] text-slate-500">Tasa Uso × (1 + Binance)</div>
+          </div>
+          <div id="outTasaFinal" class="font-mono font-bold text-blue-300">938.0363</div>
+        </div>
+
+        <div class="pt-2.5 flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-emerald-300">Diferencial Ganancia / USD</div>
+            <div class="text-[11px] text-slate-500">Tasa Binance − Tasa Efectiva Final</div>
+          </div>
+          <div id="outDiferencial" class="font-mono font-extrabold text-emerald-400">+81.9637 Bs</div>
+        </div>
+      </div>
+
+      <!-- Copy Summary Action -->
+      <button id="btnCopy" class="w-full mt-2 py-2.5 px-4 rounded-2xl bg-slate-800/90 hover:bg-slate-700/90 active:scale-[0.99] border border-slate-700 text-xs font-semibold text-slate-200 flex items-center justify-center gap-2 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        <span id="copyText">Copiar Resumen para WhatsApp / Notas</span>
+      </button>
+    </section>
+
+  </main>
+
+  <!-- Footer with Credit -->
+  <footer class="w-full border-t border-slate-800/80 bg-slate-950/70 py-4 px-4 text-center">
+    <p class="text-xs text-slate-400">
+      Desarrollado por <span class="font-bold text-white tracking-wide">Rhonny Jaimes</span>
+    </p>
+    <p class="text-[11px] text-slate-600 mt-0.5">
+      Sistema de Cálculo Financiero • Vista Móvil & Web
+    </p>
+  </footer>
+
+  <script>
+    // Default values matching the exact Excel table provided
+    const DEFAULTS = {
+      cantidad: 300,
+      tasaBanco: 874.74,
+      tasaBinance: 1020,
+      comCompraDec: 0.005,
+      comUsoDec: 0.025,
+      comBinanceDec: 0.041
+    };
+
+    // State: 'percent' shows 0.5, 2.5, 4.1 | 'decimal' shows 0.005, 0.025, 0.041
+    let inputMode = 'percent';
+
+    // Elements
+    const elCantidad = document.getElementById('inCantidad');
+    const elTasaBanco = document.getElementById('inTasaBanco');
+    const elTasaBinance = document.getElementById('inTasaBinance');
+    const elComCompra = document.getElementById('inComCompra');
+    const elComUso = document.getElementById('inComUso');
+    const elComBinance = document.getElementById('inComBinance');
+
+    const elModePercent = document.getElementById('modePercent');
+    const elModeDecimal = document.getElementById('modeDecimal');
+    const unitLabels = document.querySelectorAll('.unit-label');
+
+    // Format helpers
+    const fmtMoney = (n, decimals = 2) => {
+      if (!isFinite(n)) return '0.00';
+      return n.toLocaleString('es-VE', {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals
+      });
+    };
+
+    function getCommissionDecimals() {
+      const rawCompra = parseFloat(elComCompra.value) || 0;
+      const rawUso = parseFloat(elComUso.value) || 0;
+      const rawBinance = parseFloat(elComBinance.value) || 0;
+
+      if (inputMode === 'percent') {
+        return {
+          cCompra: rawCompra / 100,
+          cUso: rawUso / 100,
+          cBinance: rawBinance / 100
+        };
+      } else {
+        return {
+          cCompra: rawCompra,
+          cUso: rawUso,
+          cBinance: rawBinance
+        };
+      }
+    }
+
+    function calculate() {
+      const cantidad = parseFloat(elCantidad.value) || 0;
+      const tasaBanco = parseFloat(elTasaBanco.value) || 0;
+      const tasaBinance = parseFloat(elTasaBinance.value) || 0;
+      const { cCompra, cUso, cBinance } = getCommissionDecimals();
+
+      // Exact Excel formulas:
+      // 1. Compra = Tasa Banco * (1 + comCompra)
+      const tasaCompra = tasaBanco * (1 + cCompra);
+      // 2. Uso = Compra * (1 + comUso)
+      const tasaUso = tasaCompra * (1 + cUso);
+      // 3. Binance (Tasa efectiva final) = Uso * (1 + comBinance)
+      const tasaFinal = tasaUso * (1 + cBinance);
+
+      // 4. Ganancia por cada unidad (Bs) = Tasa Binance - Tasa Final
+      const gananciaPorUnidadBs = tasaBinance - tasaFinal;
+
+      // 5. Bs Necesarios = Cantidad * Tasa Compra
+      const bsNecesarios = cantidad * tasaCompra;
+
+      // 6. Usdt Necesarios = Bs Necesarios / Tasa Binance
+      const usdtNecesarios = tasaBinance > 0 ? (bsNecesarios / tasaBinance) : 0;
+
+      // 7. Ganancia Total en Bs = Cantidad * Ganancia por unidad
+      const gananciaTotalBs = cantidad * gananciaPorUnidadBs;
+
+      // 8. Ganancia Total en USDT = Ganancia Total en Bs / Tasa Binance
+      const gananciaTotalUsdt = tasaBinance > 0 ? (gananciaTotalBs / tasaBinance) : 0;
+
+      // ROI %
+      const roi = usdtNecesarios > 0 ? (gananciaTotalUsdt / usdtNecesarios) * 100 : 0;
+
+      // Update helper labels under commission inputs
+      document.getElementById('decComCompra').textContent =
+        inputMode === 'percent' ? `Excel: ${cCompra}` : `Equiv: ${(cCompra * 100).toFixed(2)}%`;
+      document.getElementById('decComUso').textContent =
+        inputMode === 'percent' ? `Excel: ${cUso}` : `Equiv: ${(cUso * 100).toFixed(2)}%`;
+      document.getElementById('decComBinance').textContent =
+        inputMode === 'percent' ? `Excel: ${cBinance}` : `Equiv: ${(cBinance * 100).toFixed(2)}%`;
+
+      document.getElementById('lblPctCompra').textContent = `${(cCompra * 100).toFixed(2)}%`;
+      document.getElementById('lblPctUso').textContent = `${(cUso * 100).toFixed(2)}%`;
+      document.getElementById('lblPctBinance').textContent = `${(cBinance * 100).toFixed(2)}%`;
+
+      // Update main outputs
+      document.getElementById('outGananciaUsdt').textContent = fmtMoney(gananciaTotalUsdt, 2);
+      document.getElementById('outGananciaBs').textContent = fmtMoney(gananciaTotalBs, 2);
+      document.getElementById('outGananciaPorDolar').textContent = fmtMoney(gananciaPorUnidadBs, 2);
+
+      document.getElementById('outBsNecesarios').textContent = `${fmtMoney(bsNecesarios, 2)} Bs`;
+      document.getElementById('outUsdtNecesarios').textContent = `${fmtMoney(usdtNecesarios, 2)} USDT`;
+
+      document.getElementById('outTasaCompra').textContent = fmtMoney(tasaCompra, 4);
+      document.getElementById('outTasaUso').textContent = fmtMoney(tasaUso, 4);
+      document.getElementById('outTasaFinal').textContent = fmtMoney(tasaFinal, 4);
+
+      const sign = gananciaPorUnidadBs >= 0 ? '+' : '';
+      document.getElementById('outDiferencial').textContent = `${sign}${fmtMoney(gananciaPorUnidadBs, 4)} Bs`;
+      document.getElementById('roiBadge').textContent = `${sign}${fmtMoney(roi, 2)}% ROI`;
+
+      // Visual feedback for positive vs negative profit
+      const hero = document.getElementById('profitHero');
+      const roiBadge = document.getElementById('roiBadge');
+      const dot = document.getElementById('profitDot');
+      if (gananciaTotalUsdt >= 0) {
+        hero.className = "rounded-3xl p-5 bg-gradient-to-br from-emerald-500/20 via-emerald-900/20 to-slate-900/90 border border-emerald-500/30 shadow-xl shadow-emerald-950/20 transition-all duration-300";
+        roiBadge.className = "text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+        dot.className = "w-2 h-2 rounded-full bg-emerald-400 animate-pulse";
+      } else {
+        hero.className = "rounded-3xl p-5 bg-gradient-to-br from-rose-500/20 via-rose-900/20 to-slate-900/90 border border-rose-500/30 shadow-xl shadow-rose-950/20 transition-all duration-300";
+        roiBadge.className = "text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30";
+        dot.className = "w-2 h-2 rounded-full bg-rose-400 animate-pulse";
+      }
+
+      // Persist in localStorage so user doesn't lose data on mobile refresh
+      localStorage.setItem('bicicleta_state_v1', JSON.stringify({
+        cantidad, tasaBanco, tasaBinance, cCompra, cUso, cBinance, inputMode
+      }));
+    }
+
+    function setCommissionInputsFromDecimals(cCompra, cUso, cBinance) {
+      if (inputMode === 'percent') {
+        elComCompra.value = +(cCompra * 100).toFixed(4);
+        elComUso.value = +(cUso * 100).toFixed(4);
+        elComBinance.value = +(cBinance * 100).toFixed(4);
+        unitLabels.forEach(l => l.textContent = '%');
+      } else {
+        elComCompra.value = +cCompra.toFixed(6);
+        elComUso.value = +cUso.toFixed(6);
+        elComBinance.value = +cBinance.toFixed(6);
+        unitLabels.forEach(l => l.textContent = 'dec');
+      }
+    }
+
+    // Switch between % mode and Excel Decimal mode
+    elModePercent.addEventListener('click', () => {
+      if (inputMode === 'percent') return;
+      const { cCompra, cUso, cBinance } = getCommissionDecimals();
+      inputMode = 'percent';
+      elModePercent.className = "px-2.5 py-1 rounded-lg font-semibold bg-blue-600 text-white transition";
+      elModeDecimal.className = "px-2.5 py-1 rounded-lg font-semibold text-slate-400 hover:text-white transition";
+      setCommissionInputsFromDecimals(cCompra, cUso, cBinance);
+      calculate();
+    });
+
+    elModeDecimal.addEventListener('click', () => {
+      if (inputMode === 'decimal') return;
+      const { cCompra, cUso, cBinance } = getCommissionDecimals();
+      inputMode = 'decimal';
+      elModeDecimal.className = "px-2.5 py-1 rounded-lg font-semibold bg-blue-600 text-white transition";
+      elModePercent.className = "px-2.5 py-1 rounded-lg font-semibold text-slate-400 hover:text-white transition";
+      setCommissionInputsFromDecimals(cCompra, cUso, cBinance);
+      calculate();
+    });
+
+    // Reset button to restore exact Excel sample values
+    document.getElementById('btnReset').addEventListener('click', () => {
+      elCantidad.value = DEFAULTS.cantidad;
+      elTasaBanco.value = DEFAULTS.tasaBanco;
+      elTasaBinance.value = DEFAULTS.tasaBinance;
+      setCommissionInputsFromDecimals(DEFAULTS.comCompraDec, DEFAULTS.comUsoDec, DEFAULTS.comBinanceDec);
+      calculate();
+    });
+
+    // Copy summary button for WhatsApp / Notes
+    document.getElementById('btnCopy').addEventListener('click', async () => {
+      const cantidad = parseFloat(elCantidad.value) || 0;
+      const tasaBanco = parseFloat(elTasaBanco.value) || 0;
+      const tasaBinance = parseFloat(elTasaBinance.value) || 0;
+      const bsNec = document.getElementById('outBsNecesarios').textContent;
+      const usdtNec = document.getElementById('outUsdtNecesarios').textContent;
+      const ganBs = document.getElementById('outGananciaBs').textContent;
+      const ganUsdt = document.getElementById('outGananciaUsdt').textContent;
+
+      const text = [
+        `📊 *Cálculo Bicicleta Bancos*`,
+        `• Cantidad: $${cantidad}`,
+        `• Tasa Banco: ${tasaBanco} Bs`,
+        `• Tasa Binance: ${tasaBinance} Bs`,
+        `• Bs Necesarios: ${bsNec}`,
+        `• Inversión USDT: ${usdtNec}`,
+        `✅ *Ganancia:* ${ganUsdt} USDT (${ganBs} Bs)`,
+        `— _App por Rhonny Jaimes_`
+      ].join('\n');
+
+      try {
+        await navigator.clipboard.writeText(text);
+        const copyText = document.getElementById('copyText');
+        copyText.textContent = '¡Copiado al portapapeles!';
+        setTimeout(() => {
+          copyText.textContent = 'Copiar Resumen para WhatsApp / Notas';
+        }, 2000);
+      } catch (e) {
+        alert('Resumen:\n\n' + text);
+      }
+    });
+
+    // Listen to all inputs
+    [elCantidad, elTasaBanco, elTasaBinance, elComCompra, elComUso, elComBinance].forEach(input => {
+      input.addEventListener('input', calculate);
+    });
+
+    // Load saved state or initialize defaults
+    (function init() {
+      try {
+        const saved = JSON.parse(localStorage.getItem('bicicleta_state_v1'));
+        if (saved && typeof saved.cantidad === 'number') {
+          elCantidad.value = saved.cantidad;
+          elTasaBanco.value = saved.tasaBanco;
+          elTasaBinance.value = saved.tasaBinance;
+          inputMode = saved.inputMode === 'decimal' ? 'decimal' : 'percent';
+          if (inputMode === 'decimal') {
+            elModeDecimal.className = "px-2.5 py-1 rounded-lg font-semibold bg-blue-600 text-white transition";
+            elModePercent.className = "px-2.5 py-1 rounded-lg font-semibold text-slate-400 hover:text-white transition";
+          }
+          setCommissionInputsFromDecimals(saved.cCompra, saved.cUso, saved.cBinance);
+        }
+      } catch (e) {}
+      calculate();
+    })();
+  </script>
+</body>
+</html>
