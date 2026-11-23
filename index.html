@@ -192,11 +192,11 @@
           <span id="themeText">Modo Oscuro</span>
         </button>
 
-        <button id="btnReset" title="Restaurar valores originales del Excel" class="px-3.5 py-2 rounded-2xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-xs font-bold text-slate-700 transition flex items-center gap-1.5 shrink-0">
+        <button id="btnReset" title="Limpiar montos y restaurar comisiones por defecto" class="px-3.5 py-2 rounded-2xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-xs font-bold text-slate-700 transition flex items-center gap-1.5 shrink-0">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
           </svg>
-          <span>Restaurar Excel</span>
+          <span>Reiniciar</span>
         </button>
       </div>
     </header>
@@ -259,9 +259,9 @@
                   type="number"
                   inputmode="decimal"
                   step="any"
-                  value="300"
+                  value="0"
                   class="w-full py-2 pl-7 pr-12 bg-white rounded-xl border border-slate-300 text-base font-mono font-extrabold text-slate-900 outline-none focus:border-indigo-600"
-                  placeholder="300"
+                  placeholder="0"
                 >
                 <span class="absolute right-3 text-[11px] font-bold text-slate-400">USD</span>
               </div>
@@ -281,9 +281,9 @@
                   type="number"
                   inputmode="decimal"
                   step="any"
-                  value="874.74"
+                  value="0"
                   class="w-full py-2 pl-3 pr-9 bg-white rounded-xl border border-slate-300 text-base font-mono font-extrabold text-slate-900 outline-none focus:border-indigo-600"
-                  placeholder="874.74"
+                  placeholder="0"
                 >
                 <span class="absolute right-3 text-xs font-bold text-slate-400">Bs</span>
               </div>
@@ -303,9 +303,9 @@
                   type="number"
                   inputmode="decimal"
                   step="any"
-                  value="1020"
+                  value="0"
                   class="w-full py-2 pl-3 pr-9 bg-white rounded-xl border border-amber-300 text-base font-mono font-extrabold text-amber-900 outline-none focus:border-amber-600"
-                  placeholder="1020"
+                  placeholder="0"
                 >
                 <span class="absolute right-3 text-xs font-bold text-amber-600">Bs</span>
               </div>
@@ -650,11 +650,11 @@
   </footer>
 
   <script>
-    // Valores originales de tu Excel
+    // Valores predeterminados: Montos y tasas en 0, comisiones predeterminadas del Excel
     const DEFAULTS = {
-      cantidad: 300,
-      tasaBanco: 874.74,
-      tasaBinance: 1020,
+      cantidad: 0,
+      tasaBanco: 0,
+      tasaBinance: 0,
       comCompraDec: 0.005, // 0.5%
       comUsoDec: 0.025,    // 2.5%
       comBinanceDec: 0.041 // 4.1%
@@ -755,7 +755,7 @@
         hero.className = "rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-rose-600 to-red-700 text-white shadow-xl shadow-rose-900/15 transition-all duration-300 space-y-4";
       }
 
-      localStorage.setItem('diferencia_cambiaria_v2', JSON.stringify({
+      localStorage.setItem('diferencia_cambiaria_v3', JSON.stringify({
         cantidad, tasaBanco, tasaBinance, cCompra, cUso, cBinance, inputMode
       }));
     }
@@ -884,7 +884,7 @@
       const savedTheme = localStorage.getItem('diferencia_theme') || 'light';
       applyTheme(savedTheme);
       try {
-        const saved = JSON.parse(localStorage.getItem('diferencia_cambiaria_v2'));
+        const saved = JSON.parse(localStorage.getItem('diferencia_cambiaria_v3'));
         if (saved && typeof saved.cantidad === 'number') {
           elCantidad.value = saved.cantidad;
           elTasaBanco.value = saved.tasaBanco;
