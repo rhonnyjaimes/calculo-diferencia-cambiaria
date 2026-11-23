@@ -1,7 +1,7 @@
 {
-  "name": "Calculadora Bicicleta Bancos - Rhonny Jaimes",
-  "short_name": "Bicicleta Calc",
-  "description": "Calculadora de arbitraje y comisiones bancarias vs Binance USDT por Rhonny Jaimes",
+  "name": "Cálculo de Diferencia Cambiaria - Rhonny Jaimes",
+  "short_name": "Diferencia FX",
+  "description": "Calculadora de diferencia cambiaria, comisiones bancarias y ciclo FX en USDT por Rhonny Jaimes",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0b0f19",

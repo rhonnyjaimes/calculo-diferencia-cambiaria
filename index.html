@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Calculadora Bicicleta Bancos | Rhonny Jaimes</title>
-  <meta name="description" content="Calculadora de arbitraje y comisiones bancarias vs Binance USDT">
+  <title>Cálculo de Diferencia Cambiaria | Rhonny Jaimes</title>
+  <meta name="description" content="Calculadora de Diferencia Cambiaria, comisiones bancarias y arbitraje USDT">
   <meta name="theme-color" content="#0b0f19">
   <link rel="manifest" href="manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,14 +65,20 @@
     <!-- Header -->
     <header class="flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-blue-500/20">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-blue-500/20" title="Ciclo Financiero 🚲">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18.5" cy="17.5" r="3.5"/>
+            <circle cx="5.5" cy="17.5" r="3.5"/>
+            <circle cx="15" cy="5" r="1"/>
+            <path d="M12 17.5V14l-3-3 4-3 2 3h2"/>
           </svg>
         </div>
         <div>
-          <h1 class="text-lg font-extrabold tracking-tight text-white leading-tight">Calculadora Bicicleta</h1>
-          <p class="text-xs text-slate-400">Banco • Comisiones • Binance USDT</p>
+          <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-white leading-tight flex items-center gap-1.5">
+            <span>Diferencia Cambiaria</span>
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-300 border border-blue-500/30" title="Guiño al ciclo">🚲 Ciclo FX</span>
+          </h1>
+          <p class="text-xs text-slate-400">Arbitraje Bancario • Comisiones • USDT</p>
         </div>
       </div>
 
@@ -532,13 +538,13 @@
       const ganUsdt = document.getElementById('outGananciaUsdt').textContent;
 
       const text = [
-        `📊 *Cálculo Bicicleta Bancos*`,
+        `📊 *Cálculo de Diferencia Cambiaria (Ciclo FX 🚲)*`,
         `• Cantidad: $${cantidad}`,
         `• Tasa Banco: ${tasaBanco} Bs`,
         `• Tasa Binance: ${tasaBinance} Bs`,
         `• Bs Necesarios: ${bsNec}`,
         `• Inversión USDT: ${usdtNec}`,
-        `✅ *Ganancia:* ${ganUsdt} USDT (${ganBs} Bs)`,
+        `✅ *Rendimiento Neto:* ${ganUsdt} USDT (${ganBs} Bs)`,
         `— _App por Rhonny Jaimes_`
       ].join('\n');
 
