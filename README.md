@@ -23,4 +23,4 @@ Calculadora web financiera en tiempo real para simular la compra de divisas en b
 ## 👤 Autor
 
 Desarrollado por **Rhonny Jaimes**
-- 📸 Apóyame en Instagram: [@ro.gaming_ve (R0N3Y Gaming VE)](https://www.instagram.com/ro.gaming_ve/)
+- 🌐 Portafolio: [Rhonny Jaimes | Computer Engineer & Full Stack Developer](https://rhonnyjaimes.github.io/)

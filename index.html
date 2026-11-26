@@ -91,32 +91,43 @@
     }
 
     /* Cajas temáticas (Indigo, Amber, Emerald) en Modo Oscuro */
+    html.dark .bg-white\/80 {
+      background-color: #1e293b !important;
+    }
     html.dark .bg-indigo-50\/90,
+    html.dark .bg-indigo-50\/80,
+    html.dark .bg-indigo-50\/70,
     html.dark .bg-indigo-50\/50,
     html.dark .bg-indigo-50 {
-      background-color: rgba(79, 70, 229, 0.15) !important;
+      background-color: rgba(79, 70, 229, 0.16) !important;
     }
     html.dark .border-indigo-200\/80,
+    html.dark .border-indigo-200\/60,
+    html.dark .border-indigo-200\/50,
     html.dark .border-indigo-200,
-    html.dark .border-indigo-300 {
+    html.dark .border-indigo-300,
+    html.dark .border-indigo-100 {
       border-color: rgba(99, 102, 241, 0.35) !important;
     }
     html.dark .text-indigo-950,
     html.dark .text-indigo-800,
     html.dark .text-indigo-700,
     html.dark .text-indigo-600 {
-      color: #a5b4fc !important;
+      color: #c7d2fe !important;
     }
     html.dark .bg-indigo-100 {
       background-color: rgba(79, 70, 229, 0.3) !important;
     }
 
+    html.dark .bg-amber-50\/80,
     html.dark .bg-amber-50\/70,
+    html.dark .bg-amber-50\/60,
     html.dark .bg-amber-50\/50 {
-      background-color: rgba(245, 158, 11, 0.12) !important;
+      background-color: rgba(245, 158, 11, 0.14) !important;
     }
     html.dark .border-amber-200\/90,
     html.dark .border-amber-200\/80,
+    html.dark .border-amber-200\/60,
     html.dark .border-amber-300 {
       border-color: rgba(245, 158, 11, 0.35) !important;
     }
@@ -213,27 +224,32 @@
       </div>
     </header>
 
-    <!-- Guía Rápida Colapsable -->
-    <details class="group bg-indigo-50/90 border border-indigo-200/80 rounded-2xl px-4 sm:px-5 py-3 text-xs sm:text-sm text-indigo-950 transition">
-      <summary class="font-bold cursor-pointer flex items-center justify-between list-none select-none">
-        <span class="flex items-center gap-2">
-          <span class="w-5 h-5 rounded-full bg-indigo-600 text-white inline-flex items-center justify-center text-[11px] font-bold shrink-0">?</span>
-          <span>¿Cómo funciona y dónde poner cada dato? (Toca para ver la guía)</span>
+    <!-- Guía de Uso Completa y Explicada para el Usuario -->
+    <details class="group bg-indigo-50/90 border border-indigo-200/80 rounded-3xl px-4 sm:px-6 py-3.5 text-xs sm:text-sm text-indigo-950 transition card-shadow">
+      <summary class="font-extrabold cursor-pointer flex items-center justify-between list-none select-none">
+        <span class="flex items-center gap-2.5">
+          <span class="w-6 h-6 rounded-full bg-indigo-600 text-white inline-flex items-center justify-center text-xs font-extrabold shrink-0">?</span>
+          <span>Guía de Uso: ¿Cómo funciona la calculadora paso a paso? (Toca para ocultar o ver)</span>
         </span>
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-indigo-600 transition-transform group-open:rotate-180 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
       </summary>
-      <div class="mt-3 pt-3 border-t border-indigo-200/60 grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-700 leading-relaxed text-xs">
-        <div>
-          <p class="font-bold text-indigo-950 mb-1">1. Monto y Tasas del Día (Paso 1):</p>
-          <p>Coloca cuántos dólares vas a comprar en el banco (ej. <code class="font-mono font-bold">$300</code>), a qué tasa te vende el banco (BCV / Mesa de Cambio) y a qué tasa está el USDT en Binance P2P.</p>
+      <div class="mt-3.5 pt-3.5 border-t border-indigo-200/60 grid grid-cols-1 md:grid-cols-3 gap-3.5 text-slate-700 leading-relaxed text-xs">
+        <div class="p-3 rounded-2xl bg-white/80 border border-indigo-100">
+          <p class="font-extrabold text-indigo-950 mb-1">1️⃣ Pon la Cantidad a Comprar</p>
+          <p>Las tasas de <strong>BCV</strong> y <strong>Binance USDT</strong> ya se cargan solas con el precio más actual del día. Solo escribe en la casilla <strong>1. Cantidad (USD)</strong> cuántos dólares vas a comprar en el banco (por ejemplo <code class="font-mono font-bold"></code>). Si deseas probar otra tasa, puedes editarlas manualmente.</p>
         </div>
-        <div>
-          <p class="font-bold text-indigo-950 mb-1">2. Comisiones Editables (Paso 2):</p>
-          <ul class="list-disc pl-4 space-y-1">
-            <li><strong>Compra:</strong> Lo que cobra el banco al venderte las divisas (ej. <code class="font-mono font-bold">0.5%</code>).</li>
-            <li><strong>Uso de Tarjeta:</strong> Lo que quita el banco al pasar la tarjeta (ej. <code class="font-mono font-bold">2.5%</code>, varía según el banco).</li>
-            <li><strong>Retorno / Binance:</strong> Lo que cuesta pasar el saldo de la tarjeta de vuelta a USDT (ej. <code class="font-mono font-bold">4.1%</code>).</li>
+        <div class="p-3 rounded-2xl bg-white/80 border border-indigo-100">
+          <p class="font-extrabold text-indigo-950 mb-1">2️⃣ Ajusta las Comisiones de tu Banco</p>
+          <p>En el <strong>Paso 2</strong> están los 3 descuentos que se aplican en cadena:</p>
+          <ul class="list-disc pl-4 mt-1 space-y-0.5">
+            <li><strong>Compra (0.5%):</strong> Lo que cobra el banco al venderte divisas.</li>
+            <li><strong>Uso de Tarjeta (2.5%):</strong> Lo que quita tu banco al pasar la tarjeta (cámbialo según tu banco).</li>
+            <li><strong>Retorno Binance (4.1%):</strong> Lo que cuesta volver a pasar ese saldo a USDT.</li>
           </ul>
+        </div>
+        <div class="p-3 rounded-2xl bg-white/80 border border-indigo-100">
+          <p class="font-extrabold text-indigo-950 mb-1">3️⃣ Revisa tu Ganancia Abajo ⬇️</p>
+          <p>Al bajar al final de la página (o a la derecha en PC), verás el <strong>cuadro verde con tu Ganancia Libre en USDT y Bs</strong>, cuántos Bolívares necesitas tener en el banco, cuántos USDT debes vender y un <strong>Resumen Explicado</strong> de toda tu operación.</p>
         </div>
       </div>
     </details>
@@ -254,35 +270,66 @@
             <span class="text-xs font-medium text-slate-400">Edita las casillas</span>
           </div>
 
-          <!-- Barra en vivo de Tasa Oficial BCV / Paralelo -->
-          <div class="p-3.5 rounded-2xl bg-indigo-50/80 border border-indigo-200/80 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
-            <div class="flex items-start gap-2.5">
-              <span id="bcvStatusDot" class="w-2.5 h-2.5 rounded-full bg-emerald-500 mt-1.5 shrink-0 animate-pulse"></span>
-              <div>
-                <div class="flex items-center gap-2 flex-wrap">
-                  <span class="text-xs font-extrabold text-indigo-950">Tasa BCV Oficial en Vivo:</span>
-                  <span id="bcvLiveValue" class="font-mono font-extrabold text-xs px-2 py-0.5 rounded-md bg-indigo-600 text-white">Cargando...</span>
+          <!-- Panel en Vivo: Tasa Oficial BCV y Tasa Binance USDT -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- BCV Live Card -->
+            <div class="p-3.5 rounded-2xl bg-indigo-50/80 border border-indigo-200/80 flex flex-col justify-between gap-2">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span id="bcvStatusDot" class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0 animate-pulse"></span>
+                  <span class="text-xs font-extrabold text-indigo-950">BCV Oficial en Vivo</span>
                 </div>
-                <p id="bcvLastUpdate" class="text-[11px] text-slate-600 mt-0.5">
-                  Consultando última actualización del BCV...
-                </p>
-                <p class="text-[10px] text-slate-500 mt-0.5 italic">
-                  * Si tu banco maneja una tasa ligeramente distinta o es errónea, puedes modificar la casilla manualmente abajo.
-                </p>
+                <span id="bcvLiveValue" class="font-mono font-extrabold text-xs px-2 py-0.5 rounded-md bg-indigo-600 text-white">Cargando...</span>
+              </div>
+              <p id="bcvLastUpdate" class="text-[11px] text-slate-600 leading-snug">
+                Consultando última actualización del BCV...
+              </p>
+              <div class="flex items-center justify-between pt-1 border-t border-indigo-200/50">
+                <span class="text-[10px] text-slate-500 italic">Predeterminada al abrir</span>
+                <div class="flex items-center gap-1">
+                  <button id="btnUseBcv" type="button" class="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-[11px] font-bold text-white shadow-sm transition">
+                    Aplicar BCV
+                  </button>
+                  <button id="btnRefreshBcv" type="button" title="Actualizar tasas en vivo" class="p-1 rounded-lg bg-white hover:bg-slate-100 border border-indigo-200 text-indigo-700 active:scale-95 transition">
+                    <svg id="iconRefreshBcv" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div class="flex items-center gap-1.5 self-end sm:self-center shrink-0">
-              <button id="btnUseBcv" type="button" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-[11px] font-bold text-white shadow-sm transition flex items-center gap-1">
-                <span>Usar Tasa BCV</span>
-              </button>
-              <button id="btnRefreshBcv" type="button" title="Actualizar tasa desde el BCV" class="p-1.5 rounded-xl bg-white hover:bg-slate-100 border border-indigo-200 text-indigo-700 active:scale-95 transition">
-                <svg id="iconRefreshBcv" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/>
-                </svg>
-              </button>
+            <!-- Binance USDT Live Card (CriptoYa / DolarApi) -->
+            <div class="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200/90 flex flex-col justify-between gap-2">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <span id="binanceStatusDot" class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0 animate-pulse"></span>
+                  <span class="text-xs font-extrabold text-amber-950">Binance P2P (Aprox.)</span>
+                </div>
+                <span id="binanceLiveValue" class="font-mono font-extrabold text-xs px-2 py-0.5 rounded-md bg-amber-500 text-white">Cargando...</span>
+              </div>
+              <p id="binanceLastUpdate" class="text-[11px] text-slate-600 leading-snug">
+                Consultando promedio USDT P2P en vivo...
+              </p>
+              <div class="flex items-center justify-between pt-1 border-t border-amber-200/60">
+                <span class="text-[10px] text-slate-500 italic">Predeterminada al abrir</span>
+                <div class="flex items-center gap-1">
+                  <button id="btnUseBinance" type="button" class="px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-600 active:scale-95 text-[11px] font-bold text-white shadow-sm transition">
+                    Aplicar Binance
+                  </button>
+                  <button id="btnRefreshBinance" type="button" title="Actualizar tasa Binance P2P en vivo" class="p-1 rounded-lg bg-white hover:bg-slate-100 border border-amber-300 text-amber-700 active:scale-95 transition">
+                    <svg id="iconRefreshBinance" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
+
+          <p class="text-[11px] text-slate-500 italic px-1">
+            * Las tasas de BCV y Binance se cargan automáticamente con el valor más actual. Si deseas simular otra tasa o corregirla, puedes escribir libremente en las casillas de abajo.
+          </p>
 
           <!-- Grid en PC: Cantidad + 2 Tasas en 3 columnas cómodas -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
@@ -318,7 +365,7 @@
                   </label>
                   <span class="text-[10px] font-semibold text-indigo-600">Editable</span>
                 </div>
-                <p class="text-[11px] text-slate-500 mb-2">Se carga del BCV o edítala si varía.</p>
+                <p class="text-[11px] text-slate-500 mb-2">Tasa oficial BCV o edítala si varía.</p>
               </div>
               <div class="relative flex items-center">
                 <input
@@ -337,10 +384,13 @@
             <!-- Tasa Binance -->
             <div class="bg-amber-50/70 p-3.5 rounded-2xl border border-amber-200/90 flex flex-col justify-between">
               <div>
-                <label for="inTasaBinance" class="block text-xs font-bold text-amber-950">
-                  3. Tasa Binance
-                </label>
-                <p class="text-[11px] text-amber-800/80 mb-2">Precio en Bs por 1 USDT en P2P.</p>
+                <div class="flex items-center justify-between gap-1">
+                  <label for="inTasaBinance" class="block text-xs font-bold text-amber-950">
+                    3. Tasa Binance (USDT)
+                  </label>
+                  <span class="text-[10px] font-semibold text-amber-700">Editable</span>
+                </div>
+                <p class="text-[11px] text-amber-800/80 mb-2">Aprox. P2P actual o edítala a tu gusto.</p>
               </div>
               <div class="relative flex items-center">
                 <input
@@ -356,6 +406,22 @@
               </div>
             </div>
           </div>
+
+          <!-- Aviso rápido de Ganancia y botón para bajar al resultado (Especial para Teléfonos) -->
+          <a href="#profitHero" class="lg:hidden mt-2 p-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white flex items-center justify-between shadow-md hover:opacity-95 active:scale-[0.99] transition">
+            <div class="flex items-center gap-2.5">
+              <span class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center text-base shrink-0">⬇️</span>
+              <div>
+                <div class="text-[11px] font-bold uppercase tracking-wider text-emerald-100">Vista rápida • Tu ganancia está más abajo</div>
+                <div class="text-xs sm:text-sm font-extrabold">
+                  Ganancia estimada: <span id="quickGananciaUsdt" class="font-mono underline">0,00 USDT</span> (<span id="quickGananciaBs" class="font-mono">0,00 Bs</span>)
+                </div>
+              </div>
+            </div>
+            <span class="text-[11px] font-extrabold px-2.5 py-1 rounded-xl bg-white/20 shrink-0">
+              Ver abajo ↓
+            </span>
+          </a>
         </section>
 
         <!-- PASO 2: Comisiones Editables (Compra, Uso del Banco, Binance) -->
@@ -609,6 +675,17 @@
             </div>
           </div>
 
+          <!-- Resumen Explicado Paso a Paso para el Usuario -->
+          <div class="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200/80 space-y-2.5 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded-md bg-indigo-600 text-white font-extrabold text-[10px] uppercase tracking-wider">Resumen Explicado</span>
+              <h3 class="font-extrabold text-indigo-950">¿Qué significan estos resultados para tu bolsillo?</h3>
+            </div>
+            <div id="userFriendlySummary" class="space-y-1.5 text-slate-700 leading-relaxed text-[11px] sm:text-xs">
+              Ingresa una cantidad en dólares arriba en el <strong>Paso 1</strong> para ver aquí la explicación detallada de cuánto necesitas invertir, a qué tasas trabajas y cuánto te queda de ganancia libre.
+            </div>
+          </div>
+
           <!-- Botón Copiar Resumen -->
           <button id="btnCopy" type="button" class="w-full mt-2 py-3 px-4 rounded-2xl bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-xs font-bold text-white flex items-center justify-center gap-2 shadow-md transition">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
@@ -666,7 +743,7 @@
 
   </main>
 
-  <!-- Pie de página con crédito a Rhonny Jaimes e Instagram @ro.gaming_ve -->
+  <!-- Pie de página con crédito a Rhonny Jaimes y Portafolio -->
   <footer class="w-full border-t border-slate-200/90 bg-white py-6 px-4 text-center space-y-2.5">
     <p class="text-xs sm:text-sm text-slate-600">
       Desarrollado por <span class="font-extrabold text-slate-900">Rhonny Jaimes</span>
@@ -674,18 +751,18 @@
 
     <div class="flex items-center justify-center">
       <a
-        href="https://www.instagram.com/ro.gaming_ve/"
+        href="https://rhonnyjaimes.github.io/"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-indigo-500/10 hover:from-pink-500/20 hover:to-indigo-500/20 border border-pink-500/25 text-xs font-bold text-slate-800 transition shadow-sm"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-500/10 via-blue-500/10 to-teal-500/10 hover:from-indigo-500/20 hover:to-teal-500/20 border border-indigo-500/25 text-xs font-bold text-slate-800 transition shadow-sm"
       >
-        <!-- Icono Instagram -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-pink-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-          <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+        <!-- Icono Portafolio -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-indigo-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+          <path d="M2 12h20"/>
         </svg>
-        <span>Apóyame en Instagram: <strong class="text-pink-600">@ro.gaming_ve</strong> (R0N3Y Gaming VE)</span>
+        <span>Visita mi portafolio: <strong class="text-indigo-600">Rhonny Jaimes</strong> • Computer Engineer &amp; Full Stack Developer</span>
       </a>
     </div>
 
@@ -800,6 +877,32 @@
         hero.className = "rounded-3xl p-5 sm:p-6 bg-gradient-to-br from-rose-600 to-red-700 text-white shadow-xl shadow-rose-900/15 transition-all duration-300 space-y-4";
       }
 
+      // Actualizar banner rápido de ganancia (para que vean cuánto ganan sin bajar y puedan tocar para ir abajo)
+      const elQuickUsdt = document.getElementById('quickGananciaUsdt');
+      const elQuickBs = document.getElementById('quickGananciaBs');
+      if (elQuickUsdt && elQuickBs) {
+        elQuickUsdt.textContent = sign + fmtMoney(gananciaTotalUsdt, 2) + ' USDT';
+        elQuickBs.textContent = sign + fmtMoney(gananciaTotalBs, 2) + ' Bs';
+      }
+
+      // Actualizar el Resumen Explicado Paso a Paso para el Usuario
+      const elSummary = document.getElementById('userFriendlySummary');
+      if (elSummary) {
+        if (cantidad <= 0 || tasaBanco <= 0 || tasaBinance <= 0) {
+          elSummary.innerHTML = '<p>💡 <strong>¿Cómo empezar?</strong> Las tasas del <strong>BCV (' + fmtMoney(tasaBanco, 2) + ' Bs)</strong> y de <strong>Binance (' + fmtMoney(tasaBinance, 2) + ' Bs)</strong> ya están cargadas. Solo escribe arriba en la casilla <strong>1. Cantidad (USD)</strong> cuántos dólares vas a comprar en el banco para ver aquí todo el resumen explicado de tu operación.</p>';
+        } else {
+          const estadoTxt = gananciaTotalUsdt >= 0
+            ? '<span class="font-extrabold text-emerald-600">una Ganancia Libre de ' + fmtMoney(gananciaTotalUsdt, 2) + ' USDT (' + fmtMoney(gananciaTotalBs, 2) + ' Bs)</span>'
+            : '<span class="font-extrabold text-rose-600">una Pérdida de ' + fmtMoney(gananciaTotalUsdt, 2) + ' USDT (' + fmtMoney(gananciaTotalBs, 2) + ' Bs)</span>';
+
+          elSummary.innerHTML =
+            '<p>• <strong>1. Compra en el Banco:</strong> Vas a comprar <strong>$' + fmtMoney(cantidad, 2) + ' USD</strong> a tasa BCV/Banco de <strong>' + fmtMoney(tasaBanco, 2) + ' Bs</strong>. Con el <strong>' + (cCompra * 100).toFixed(2) + '%</strong> de comisión de compra, cada dólar te cuesta <strong>' + fmtMoney(tasaCompra, 2) + ' Bs</strong> y necesitas tener en el banco <strong>' + fmtMoney(bsNecesarios, 2) + ' Bs</strong>.</p>' +
+            '<p>• <strong>2. Capital en Binance:</strong> Para conseguir esos Bolívares vendiendo a <strong>' + fmtMoney(tasaBinance, 2) + ' Bs</strong> en Binance P2P, necesitas vender <strong>' + fmtMoney(usdtNecesarios, 2) + ' USDT</strong>.</p>' +
+            '<p>• <strong>3. Descuento de Comisiones:</strong> Al descontar el uso de tarjeta (<strong>' + (cUso * 100).toFixed(2) + '%</strong>) y el retorno a Binance (<strong>' + (cBinance * 100).toFixed(2) + '%</strong>), la tasa final real por dólar sube a <strong>' + fmtMoney(tasaFinal, 2) + ' Bs</strong> (ganas <strong>' + sign + fmtMoney(gananciaPorUnidadBs, 2) + ' Bs</strong> por cada ).</p>' +
+            '<p>• <strong>4. Tu Ganancia Final:</strong> Al terminar la operación recuperas tus <strong>' + fmtMoney(usdtNecesarios, 2) + ' USDT</strong> de capital y te queda ' + estadoTxt + ' (rendimiento del <strong>' + sign + fmtMoney(roi, 2) + '%</strong>).</p>';
+        }
+      }
+
       localStorage.setItem('diferencia_cambiaria_v3', JSON.stringify({
         cantidad, tasaBanco, tasaBinance, cCompra, cUso, cBinance, inputMode
       }));
@@ -856,7 +959,7 @@
     document.getElementById('btnReset').addEventListener('click', () => {
       elCantidad.value = DEFAULTS.cantidad;
       elTasaBanco.value = latestBcvRate > 0 ? latestBcvRate : DEFAULTS.tasaBanco;
-      elTasaBinance.value = DEFAULTS.tasaBinance;
+      elTasaBinance.value = latestBinanceRate > 0 ? latestBinanceRate : DEFAULTS.tasaBinance;
       setCommissionInputsFromDecimals(DEFAULTS.comCompraDec, DEFAULTS.comUsoDec, DEFAULTS.comBinanceDec);
       calculate();
     });
@@ -872,14 +975,14 @@
       const ganUsdt = document.getElementById('outGananciaUsdt').textContent;
 
       const text = [
-        `📊 *Cálculo de Diferencia Cambiaria*`,
-        `• Cantidad a comprar: $${cantidad} USD`,
-        `• Tasa Banco: ${tasaBanco} Bs`,
-        `• Tasa Binance: ${tasaBinance} Bs`,
-        `• Comisiones: Compra ${(cCompra*100).toFixed(2)}% | Uso Banco ${(cUso*100).toFixed(2)}% | Binance ${(cBinance*100).toFixed(2)}%`,
-        `• Bs Necesarios: ${bsNec}`,
-        `• USDT Necesarios: ${usdtNec}`,
-        `✅ *Ganancia Libre:* ${ganUsdt} USDT (${ganBs} Bs)`
+        '📊 *Cálculo de Diferencia Cambiaria*',
+        '• Cantidad a comprar: $' + cantidad + ' USD',
+        '• Tasa Banco: ' + tasaBanco + ' Bs',
+        '• Tasa Binance: ' + tasaBinance + ' Bs',
+        '• Comisiones: Compra ' + (cCompra*100).toFixed(2) + '% | Uso Banco ' + (cUso*100).toFixed(2) + '% | Binance ' + (cBinance*100).toFixed(2) + '%',
+        '• Bs Necesarios: ' + bsNec,
+        '• USDT Necesarios: ' + usdtNec,
+        '✅ *Ganancia Libre:* ' + ganUsdt + ' USDT (' + ganBs + ' Bs)'
       ].join('\n');
 
       try {
@@ -924,16 +1027,28 @@
       applyTheme(isDark ? 'light' : 'dark');
     });
 
-    // Consulta automática de la Tasa Oficial BCV en Venezuela
-    // Primero intenta leer directamente la página oficial https://www.bcv.org.ve (para tener la Fecha Valor exacta que publica el BCV en la tarde para el día siguiente)
-    // y si el proxy CORS falla, usa DolarApi como respaldo inmediato.
+    // =========================================================================
+    // Consulta Automática de Tasas en Vivo:
+    // 1. Tasa BCV Oficial: DolarVZLA (https://rates.dolarvzla.com/bcv/current.json) + Respaldo CriptoYa / DolarApi / DolarApi
+    // 2. Tasa Binance USDT: CriptoYa / DolarApi (https://www.CriptoYa / DolarApi/api/v1/rates/current) + Respaldo DolarApi Paralelo
+    // Ambas tasas se colocan como predeterminadas al abrir la página.
+    // =========================================================================
     let latestBcvRate = 0;
+    let latestBinanceRate = 0;
+
     const elBcvLiveValue = document.getElementById('bcvLiveValue');
     const elBcvLastUpdate = document.getElementById('bcvLastUpdate');
     const elBcvStatusDot = document.getElementById('bcvStatusDot');
     const btnUseBcv = document.getElementById('btnUseBcv');
     const btnRefreshBcv = document.getElementById('btnRefreshBcv');
     const iconRefreshBcv = document.getElementById('iconRefreshBcv');
+
+    const elBinanceLiveValue = document.getElementById('binanceLiveValue');
+    const elBinanceLastUpdate = document.getElementById('binanceLastUpdate');
+    const elBinanceStatusDot = document.getElementById('binanceStatusDot');
+    const btnUseBinance = document.getElementById('btnUseBinance');
+    const btnRefreshBinance = document.getElementById('btnRefreshBinance');
+    const iconRefreshBinance = document.getElementById('iconRefreshBinance');
 
     function formatIsoDateEs(isoDateStr) {
       if (!isoDateStr) return '';
@@ -953,8 +1068,22 @@
       return isoDateStr;
     }
 
-    async function fetchDirectFromBcvHtml() {
-      // Fuente principal recomendada: DolarVZLA Monitor BCV (https://rates.dolarvzla.com/bcv/current.json)
+    function formatDateTimeEs(isoDateTimeStr) {
+      if (!isoDateTimeStr) return '';
+      const dt = new Date(isoDateTimeStr);
+      if (isNaN(dt.getTime())) return isoDateTimeStr;
+      return dt.toLocaleString('es-VE', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      });
+    }
+
+    // --- 1. Obtener Tasa BCV ---
+    async function fetchFromDolarVzla() {
       try {
         const res = await fetch('https://rates.dolarvzla.com/bcv/current.json?t=' + Date.now(), { cache: 'no-store' });
         if (res.ok) {
@@ -965,14 +1094,14 @@
             const prettyDate = formatIsoDateEs(currentObj.date || '');
             let prevInfo = '';
             if (data.previous && data.previous.usd) {
-              const prevRate = (+parseFloat(data.previous.usd)).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 4 });
-              prevInfo = ' • Anterior: ' + prevRate + ' Bs';
+              const prevRate = (+parseFloat(data.previous.usd)).toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+              prevInfo = ' (Ant: ' + prevRate + ' Bs)';
             }
             return {
               rate: +rate.toFixed(4),
               label: prettyDate
-                ? 'Fecha Valor BCV: ' + prettyDate + prevInfo + ' (Fuente: DolarVZLA)'
-                : 'Actualizado vía Monitor BCV (DolarVZLA)' + prevInfo
+                ? 'Fecha Valor: ' + prettyDate + prevInfo
+                : 'Actualizado vía Monitor BCV' + prevInfo
             };
           }
         }
@@ -980,17 +1109,16 @@
       return null;
     }
 
-    async function fetchFromDolarApi() {
+    async function fetchFromDolarApiBcv() {
       const res = await fetch('https://ve.dolarapi.com/v1/dolares/oficial', { cache: 'no-store' });
       if (!res.ok) throw new Error('Error HTTP ' + res.status);
       const data = await res.json();
       const rate = parseFloat(data.promedio || data.venta || data.precio || 0);
       if (!rate || rate <= 0) throw new Error('Tasa inválida');
 
-      let label = 'Tasa BCV (vía DolarApi)';
+      let label = 'Tasa BCV actualizada';
       if (data.fechaActualizacion) {
-        const dt = new Date(data.fechaActualizacion);
-        label = `Actualizado: ${dt.toLocaleDateString('es-VE', { day: '2-digit', month: '2-digit', year: 'numeric' })} (vía DolarApi - puede no incluir la Fecha Valor de mañana)`;
+        label = 'Última act.: ' + formatDateTimeEs(data.fechaActualizacion);
       }
       return {
         rate: +rate.toFixed(4),
@@ -998,35 +1126,115 @@
       };
     }
 
-    async function fetchBcvRate(forceApply = false) {
+    async function fetchBcvRate(forceApply = true) {
       try {
         iconRefreshBcv.classList.add('animate-spin');
-        elBcvLiveValue.textContent = 'Consultando BCV...';
+        elBcvLiveValue.textContent = 'Consultando...';
 
-        // 1. Intentar lectura directa de bcv.org.ve (tiene la tasa publicada para mañana / Fecha Valor)
-        let result = await fetchDirectFromBcvHtml();
-
-        // 2. Si falla, usar DolarApi como respaldo
+        let result = await fetchFromDolarVzla();
         if (!result) {
-          result = await fetchFromDolarApi();
+          result = await fetchFromDolarApiBcv();
         }
 
         latestBcvRate = result.rate;
-        elBcvLiveValue.textContent = `${latestBcvRate.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 4 })} Bs`;
-        elBcvStatusDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 mt-1.5 shrink-0';
+        elBcvLiveValue.textContent = latestBcvRate.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 4 }) + ' Bs';
+        elBcvStatusDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0';
         elBcvLastUpdate.textContent = result.label;
 
-        const currentInputRate = parseFloat(elTasaBanco.value) || 0;
-        if (forceApply || currentInputRate === 0) {
+        if (forceApply || (parseFloat(elTasaBanco.value) || 0) === 0) {
           elTasaBanco.value = latestBcvRate;
           calculate();
         }
       } catch (err) {
-        elBcvLiveValue.textContent = 'Modo Manual';
-        elBcvStatusDot.className = 'w-2.5 h-2.5 rounded-full bg-amber-500 mt-1.5 shrink-0';
-        elBcvLastUpdate.textContent = 'No se pudo conectar con el BCV. Ingresa la tasa manualmente.';
+        elBcvLiveValue.textContent = 'Manual';
+        elBcvStatusDot.className = 'w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0';
+        elBcvLastUpdate.textContent = 'No se pudo cargar. Escribe la tasa abajo.';
       } finally {
         iconRefreshBcv.classList.remove('animate-spin');
+      }
+    }
+
+    // --- 2. Obtener Tasa Binance USDT desde APIs limpias y de confianza (CriptoYa Binance P2P + DolarApi Paralelo) ---
+    async function fetchBinanceFromCriptoYa() {
+      try {
+        // Consultamos volumen 100 USDT en CriptoYa para evitar anuncios filtro de 1 USDT y obtener la tasa real de Binance P2P (~1.101 Bs, igual a usdt.com.ve)
+        const res = await fetch('https://criptoya.com/api/binancep2p/USDT/VES/100?t=' + Date.now(), { cache: 'no-store' });
+        if (!res.ok) return null;
+        const data = await res.json();
+
+        const ask = parseFloat(data.ask || data.totalAsk || 0);
+        const bid = parseFloat(data.bid || data.totalBid || 0);
+        // En CriptoYa, 'bid' es el precio real de mercado P2P (y si se consulta volumen 1, 'ask' suele traer órdenes filtro bajas). Tomamos el valor real de mercado P2P:
+        const rate = Math.max(bid, ask);
+
+        if (rate > 0) {
+          let timeStr = '';
+          if (data.time) {
+            const dt = new Date(data.time * 1000);
+            if (!isNaN(dt.getTime())) {
+              timeStr = dt.toLocaleString('es-VE', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+              });
+            }
+          }
+          return {
+            rate: +rate.toFixed(2),
+            label: (timeStr ? 'Última act.: ' + timeStr : 'Tasa Binance P2P en vivo') + ' (Mercado P2P)'
+          };
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    async function fetchBinanceFromDolarApi() {
+      const res = await fetch('https://ve.dolarapi.com/v1/dolares/paralelo', { cache: 'no-store' });
+      if (!res.ok) throw new Error('Error HTTP ' + res.status);
+      const data = await res.json();
+      const rate = parseFloat(data.promedio || data.venta || data.precio || 0);
+      if (!rate || rate <= 0) throw new Error('Tasa inválida');
+
+      let label = 'Aprox. USDT actualizado';
+      if (data.fechaActualizacion) {
+        label = 'Última act.: ' + formatDateTimeEs(data.fechaActualizacion);
+      }
+      return {
+        rate: +rate.toFixed(2),
+        label
+      };
+    }
+
+    async function fetchBinanceRate(forceApply = true) {
+      try {
+        iconRefreshBinance.classList.add('animate-spin');
+        elBinanceLiveValue.textContent = 'Consultando...';
+
+        // 1. Intentar CriptoYa (API oficial de mercado Binance P2P USDT/VES)
+        let result = await fetchBinanceFromCriptoYa();
+        // 2. Respaldo con DolarApi (ve.dolarapi.com/v1/dolares/paralelo)
+        if (!result) {
+          result = await fetchBinanceFromDolarApi();
+        }
+
+        latestBinanceRate = result.rate;
+        elBinanceLiveValue.textContent = latestBinanceRate.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' Bs';
+        elBinanceStatusDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0';
+        elBinanceLastUpdate.textContent = result.label;
+
+        if (forceApply || (parseFloat(elTasaBinance.value) || 0) === 0) {
+          elTasaBinance.value = latestBinanceRate;
+          calculate();
+        }
+      } catch (err) {
+        elBinanceLiveValue.textContent = 'Manual';
+        elBinanceStatusDot.className = 'w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0';
+        elBinanceLastUpdate.textContent = 'No se pudo cargar. Escribe la tasa abajo.';
+      } finally {
+        iconRefreshBinance.classList.remove('animate-spin');
       }
     }
 
@@ -1041,6 +1249,19 @@
 
     btnRefreshBcv.addEventListener('click', () => {
       fetchBcvRate(true);
+    });
+
+    btnUseBinance.addEventListener('click', () => {
+      if (latestBinanceRate > 0) {
+        elTasaBinance.value = latestBinanceRate;
+        calculate();
+      } else {
+        fetchBinanceRate(true);
+      }
+    });
+
+    btnRefreshBinance.addEventListener('click', () => {
+      fetchBinanceRate(true);
     });
 
     (function init() {
@@ -1062,8 +1283,10 @@
         }
       } catch (e) {}
       calculate();
-      // Consultar tasa BCV al abrir la página
-      fetchBcvRate(false);
+
+      // Al abrir la aplicación, consultar y establecer por defecto las tasas más actuales de BCV y Binance
+      fetchBcvRate(true);
+      fetchBinanceRate(true);
     })();
   </script>
 </body>
